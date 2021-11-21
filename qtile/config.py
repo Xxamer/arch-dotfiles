@@ -30,7 +30,7 @@ from libqtile import bar, layout, widget
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-
+from libqtile import qtile
 mod = "mod4"
 terminal = "alacritty"
 
@@ -41,7 +41,9 @@ keys = [
     Key([mod], "j", lazy.layout.down(), desc="Move focus down"),
     Key([mod], "k", lazy.layout.up(), desc="Move focus up"),
     Key([mod], "space", lazy.spawn("rofi -show run"),
-        desc="Move window focus to other window"),
+        desc="Open Rofi with all"),
+        Key([mod], "Print", lazy.spawn("flameshot gui"),
+        desc="Use flameshot"),
 
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
@@ -139,6 +141,42 @@ screens = [
         top=bar.Bar(
             [
                 # widget.CurrentLayout(),
+                widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                widget.Image(
+                       filename = "~/.config/qtile/icons/layout-tile.png",
+                       scale = "TRue",
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("pcmanfm")}
+                       ),
+                widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                widget.Image(
+                    filename = "~/.config/qtile/icons/chrome-icon-white.png",
+                    scale = "True",
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("google-chrome-stable")}
+                    ),
+                widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                widget.Image(
+                    filename = "~/.config/qtile/icons/kde-icon.png",
+                    scale = "True",
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("kdenlive")}
+                    ),
+                    widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                widget.Image(
+                    filename = "~/.config/qtile/icons/obs-icon.png",
+                    scale = "True",
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("obs")}
+                    ),
                 widget.GroupBox(
                        font = "Ubuntu",
                        fontsize = 12,
@@ -179,51 +217,32 @@ screens = [
                 ),
                 # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 widget.Systray(),
-                widget.TextBox(
-                   text = '',
-                   background = colors[5],
-                   foreground = colors[2],
-                   padding = 0,
-                   fontsize = 37
-                   ),
-                widget.Battery( foreground = colors[2],
-                    background = colors[5],),
-                 widget.TextBox(
-                   text = '',
-                   background = colors[4],
-                   foreground = colors[2],
-                   padding = 0,
-                   fontsize = 37
-                   ),
+                widget.Battery( 
+                    ),
+                #  widget.TextBox(
+                #    text = '',
+                #    background = colors[4],
+                #    foreground = colors[2],
+                #    padding = 0,
+                #    fontsize = 37
+                #    ),
                 widget.TextBox(
                       text = " Vol:",
-                       foreground = colors[2],
-                       background = colors[4],
                        padding = 0
                        ),
               widget.Volume(
-                       foreground = colors[2],
-                       background = colors[4],
                        padding = 5
                        ),
 
                 widget.Sep(
                     linewidth = 0,
                     padding = 6,
-                    foreground = colors[2],
-                    background = colors[5]
+                    # foreground = colors[2],
+                    # background = colors[5]
                    ),
-                widget.TextBox(
-                   text = '',
-                   background = colors[5],
-                   foreground = colors[2],
-                   padding = 0,
-                   fontsize = 37
-                   ),
-
                 widget.Clock(
-                    foreground = colors[2],
-                    background = colors[5],
+                    # foreground = colors[2],
+                    # background = colors[5],
                     format = "%A, %B %d - %H:%M "
                        ),
 
@@ -235,9 +254,74 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayout(),
-                widget.GroupBox(),
-                widget.Prompt(),
+                # widget.CurrentLayout(),
+                widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                widget.Image(
+                       filename = "~/.config/qtile/icons/layout-tile.png",
+                       scale = "TRue",
+                       mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("pcmanfm")}
+                       ),
+                widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                widget.Image(
+                    filename = "~/.config/qtile/icons/chrome-icon-white.png",
+                    scale = "True",
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("google-chrome-stable")}
+                    ),
+                widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                widget.Image(
+                    filename = "~/.config/qtile/icons/kde-icon.png",
+                    scale = "True",
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("kdenlive")}
+                    ),
+                    widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                widget.Image(
+                    filename = "~/.config/qtile/icons/obs-icon.png",
+                    scale = "True",
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("obs")}
+                    ),
+                widget.GroupBox(
+                       font = "Ubuntu",
+                       fontsize = 12,
+                       margin_y = 3,
+                       margin_x = 5,
+                       padding_y = 5,
+                       padding_x = 3,
+                       borderwidth = 3,
+                       active = colors[2],
+                       inactive = colors[7],
+                       rounded = False,
+                       highlight_color = colors[1],
+                       highlight_method = "line",
+                       this_current_screen_border = colors[6],
+                       this_screen_border = colors [4],
+                       other_current_screen_border = colors[6],
+                       other_screen_border = colors[4],
+                       foreground = colors[2],
+                       background = colors[0]
+                       ),
+                       widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                       widget.Prompt(
+                       margin_y = 10,
+                       font = "Ubuntu Mono",
+                       padding = 10,
+                       foreground = colors[3],
+                       background = colors[1]
+                       ),
                 widget.WindowName(),
                 widget.Chord(
                     chords_colors={
@@ -247,9 +331,36 @@ screens = [
                 ),
                 # widget.TextBox("Press &lt;M-r&gt; to spawn", foreground="#d75f5f"),
                 widget.Systray(),
-                widget.Clock(format='%Y-%m-%d %a %I:%M %p'),
-                widget.QuickExit(),
-                
+                widget.Battery( 
+                    ),
+                #  widget.TextBox(
+                #    text = '',
+                #    background = colors[4],
+                #    foreground = colors[2],
+                #    padding = 0,
+                #    fontsize = 37
+                #    ),
+                widget.TextBox(
+                      text = " Vol:",
+                       padding = 0
+                       ),
+              widget.Volume(
+                       padding = 5
+                       ),
+
+                widget.Sep(
+                    linewidth = 0,
+                    padding = 6,
+                    # foreground = colors[2],
+                    # background = colors[5]
+                   ),
+                widget.Clock(
+                    # foreground = colors[2],
+                    # background = colors[5],
+                    format = "%A, %B %d - %H:%M "
+                       ),
+
+
             ],
             24,
         ),
