@@ -84,24 +84,31 @@ keys = [
         desc="Spawn a command using a prompt widget"),
 ]
 
-groups = [Group(i) for i in "123456789"]
+groups = []
+
+group_names = ["1", "2", "3", "4", "5", "6",]
+group_labels = ["Web ", "Term ", "Files ", "Code ", "Image ", "Video ",]
+group_layouts = ["monadtall", "monadtall", "monadtall", "monadtall", "monadtall", "monadtall",]
 
 
-
+for i in range(len(group_names)):
+    groups.append(
+        Group(
+            name=group_names[i],
+            layout=group_layouts[i].lower(),
+            label=group_labels[i],
+        ))
+        
 for i in groups:
     keys.extend([
-        # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen(),
-            desc="Switch to group {}".format(i.name)),
-
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        Key([mod, "shift"], i.name, lazy.window.togroup(i.name, switch_group=True),
-            desc="Switch to & move focused window to group {}".format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        # Key([mod, "shift"], i.name, lazy.window.togroup(i.name),
-        #     desc="move focused window to group {}".format(i.name)),
+        Key([mod], i.name, lazy.group[i.name].toscreen()),
+        Key([mod], "Tab", lazy.screen.next_group()),
+        Key([mod, "shift" ], "Tab", lazy.screen.prev_group()),
+        Key(["mod1"], "Tab", lazy.screen.next_group()),
+        Key(["mod1", "shift"], "Tab", lazy.screen.prev_group()),
+        Key([mod, "shift"], i.name, lazy.window.togroup(i.name) , lazy.group[i.name].toscreen()),
     ])
+  
 
 colors = [["#282c34", "#282c34"], # panel background
           ["#3d3f4b", "#434758"], # background for current screen tab
@@ -113,18 +120,18 @@ colors = [["#282c34", "#282c34"], # panel background
           ["#ecbbfb", "#ecbbfb"]] # backbround for inactive screens
 
 layouts = [
-    layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=4),
-    layout.Max(),
+     layout.Columns(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=2),
+    # layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
-    # layout.Matrix(),
+    #  layout.Matrix(),
     # layout.MonadTall(),
     # layout.MonadWide(),
-    # layout.RatioTile(),
+    #  layout.RatioTile(),
     # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
+    #  layout.TreeTab(),
+    # layout.VerticalTile(border_focus_stack=['#d75f5f', '#8f3d3d'], border_width=2),
     # layout.Zoomy(),
 ]
 
@@ -147,7 +154,7 @@ screens = [
                    ),
                 widget.Image(
                        filename = "~/.config/qtile/icons/layout-tile.png",
-                       scale = "TRue",
+                       scale = "True",
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("pcmanfm")}
                        ),
                 widget.Sep(
@@ -155,16 +162,25 @@ screens = [
                     padding = 10
                    ),
                 widget.Image(
-                    filename = "~/.config/qtile/icons/chrome-icon-white.png",
+                    filename = "~/.config/qtile/icons/chrome-brands.svg",
                     scale = "True",
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("google-chrome-stable")}
+                    ),
+                     widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                      widget.Image(
+                    filename = "~/.config/qtile/icons/discord-brands.svg",
+                    scale = "True",
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("discord")}
                     ),
                 widget.Sep(
                     linewidth = 0,
                     padding = 10
                    ),
                 widget.Image(
-                    filename = "~/.config/qtile/icons/kde-icon.png",
+                    filename = "~/.config/qtile/icons/kde-brand.svg",
                     scale = "True",
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("kdenlive")}
                     ),
@@ -173,10 +189,23 @@ screens = [
                     padding = 10
                    ),
                 widget.Image(
-                    filename = "~/.config/qtile/icons/obs-icon.png",
+                    filename = "~/.config/qtile/icons/obs-brand.svg",
                     scale = "True",
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("obs")}
                     ),
+                      widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                    widget.Image(
+                    filename = "~/.config/qtile/icons/Notion.png",
+                    scale = "True",
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("notion-app")}
+                    ),
+                     widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
                 widget.GroupBox(
                        font = "Ubuntu",
                        fontsize = 12,
@@ -219,30 +248,17 @@ screens = [
                 widget.Systray(),
                 widget.Battery( 
                     ),
-                #  widget.TextBox(
-                #    text = '',
-                #    background = colors[4],
-                #    foreground = colors[2],
-                #    padding = 0,
-                #    fontsize = 37
-                #    ),
                 widget.TextBox(
                       text = " Vol:",
                        padding = 0
                        ),
-              widget.Volume(
-                       padding = 5
-                       ),
+                       widget.PulseVolume(),
 
                 widget.Sep(
                     linewidth = 0,
                     padding = 6,
-                    # foreground = colors[2],
-                    # background = colors[5]
                    ),
                 widget.Clock(
-                    # foreground = colors[2],
-                    # background = colors[5],
                     format = "%A, %B %d - %H:%M "
                        ),
 
@@ -261,7 +277,7 @@ screens = [
                    ),
                 widget.Image(
                        filename = "~/.config/qtile/icons/layout-tile.png",
-                       scale = "TRue",
+                       scale = "True",
                        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("pcmanfm")}
                        ),
                 widget.Sep(
@@ -269,16 +285,25 @@ screens = [
                     padding = 10
                    ),
                 widget.Image(
-                    filename = "~/.config/qtile/icons/chrome-icon-white.png",
+                    filename = "~/.config/qtile/icons/chrome-brands.svg",
                     scale = "True",
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("google-chrome-stable")}
+                    ),
+                     widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                      widget.Image(
+                    filename = "~/.config/qtile/icons/discord-brands.svg",
+                    scale = "True",
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("discord")}
                     ),
                 widget.Sep(
                     linewidth = 0,
                     padding = 10
                    ),
                 widget.Image(
-                    filename = "~/.config/qtile/icons/kde-icon.png",
+                    filename = "~/.config/qtile/icons/kde-brand.svg",
                     scale = "True",
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("kdenlive")}
                     ),
@@ -287,10 +312,23 @@ screens = [
                     padding = 10
                    ),
                 widget.Image(
-                    filename = "~/.config/qtile/icons/obs-icon.png",
+                    filename = "~/.config/qtile/icons/obs-brand.svg",
                     scale = "True",
                     mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("obs")}
                     ),
+                      widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
+                    widget.Image(
+                    filename = "~/.config/qtile/icons/Notion.png",
+                    scale = "True",
+                    mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn("notion-app")}
+                    ),
+                     widget.Sep(
+                    linewidth = 0,
+                    padding = 10
+                   ),
                 widget.GroupBox(
                        font = "Ubuntu",
                        fontsize = 12,
@@ -333,30 +371,17 @@ screens = [
                 widget.Systray(),
                 widget.Battery( 
                     ),
-                #  widget.TextBox(
-                #    text = '',
-                #    background = colors[4],
-                #    foreground = colors[2],
-                #    padding = 0,
-                #    fontsize = 37
-                #    ),
                 widget.TextBox(
                       text = " Vol:",
                        padding = 0
                        ),
-              widget.Volume(
-                       padding = 5
-                       ),
+                       widget.PulseVolume(),
 
                 widget.Sep(
                     linewidth = 0,
                     padding = 6,
-                    # foreground = colors[2],
-                    # background = colors[5]
                    ),
                 widget.Clock(
-                    # foreground = colors[2],
-                    # background = colors[5],
                     format = "%A, %B %d - %H:%M "
                        ),
 

@@ -2,6 +2,6 @@ configuration {
   font: "SF Pro Rounded 10";
   show-icons: true;
   hide-scrollbar: true;
-  theme: "~/.config/rofi/themes/onedark.rasi";
   kb-cancel: "Escape,Alt+F1";
 }
+ @theme "~/.config/rofi/themes/DarkBlue.rasi"

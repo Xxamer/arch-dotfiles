@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+<svg width="25000" height="24421" version="1.1" viewBox="0 0 25000 24421" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+ <metadata>
+  <rdf:RDF>
+   <cc:Work rdf:about="">
+    <dc:format>image/svg+xml</dc:format>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title/>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <g>
+  <path fill="white" d="m9164 0h7832.5l-3368.4 4396.6v20025h-1139v-20025z"/>
+  <g>
+   <rect x="5120.4" y="7379.6" width="5642.9" height="2299" fill="white" style="paint-order:markers fill stroke"/>
+   <rect x="2220.6" y="11377" width="8542.8" height="2299" fill="white" style="paint-order:markers fill stroke"/>
+   <rect y="15322" width="10763" height="2299" fill="white" style="paint-order:markers fill stroke"/>
+   <rect x="3396.2" y="19292" width="7367.2" height="2299" fill="white" style="paint-order:markers fill stroke"/>
+   <path d="m15603 7381.3c-353.17 113.65-265.89 516.41-267.85 813.76v12464c1.954 297.35-85.324 700.11 267.85 813.76 182.47 0 158.41-29.546 707.91-379.25 549.5-349.7 8387-6265.3 8387-6265.3 139.82-111.21 302.02-200.91 302.02-401.44s-162.21-290.23-302.02-401.44c0 0-7837.5-5915.6-8387-6265.3-549.5-349.71-525.44-379.25-707.91-379.25z" fill="white" style="paint-order:markers fill stroke"/>
+  </g>
+ </g>
+</svg>
